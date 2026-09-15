@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Rifas Online</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+
+    <header>
+
+        <h1>🎟️ RIFAS ONLINE</h1>
+
+        <select id="selectorIdioma">
+
+            <option value="es">🇪🇸 Español</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="pt">🇧🇷 Português</option>
+            <option value="fr">🇫🇷 Français</option>
+            <option value="de">🇩🇪 Deutsch</option>
+            <option value="it">🇮🇹 Italiano</option>
+            <option value="nl">🇳🇱 Nederlands</option>
+            <option value="ru">🇷🇺 Русский</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="ja">🇯🇵 日本語</option>
+            <option value="ko">🇰🇷 한국어</option>
+            <option value="ar">🇸🇦 العربية</option>
+            <option value="hi">🇮🇳 हिन्दी</option>
+            <option value="tr">🇹🇷 Türkçe</option>
+            <option value="pl">🇵🇱 Polski</option>
+            <option value="sv">🇸🇪 Svenska</option>
+            <option value="id">🇮🇩 Bahasa Indonesia</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option>
+            <option value="uk">🇺🇦 Українська</option>
+            <option value="tl">🇵🇭 Filipino</option>
+
+        </select>
+
+        <nav>
+
+            <button onclick="mostrarSeccion('crear')" data-texto="crearRifa">
+                Crear rifa
+            </button>
+
+            <button onclick="mostrarSeccion('explorar')" data-texto="explorar">
+                Explorar rifas
+            </button>
+
+            <button onclick="mostrarSeccion('misRifas')" data-texto="misRifas">
+        Mis rifas
+    </button>
+
+            <button onclick="mostrarSeccion('cuenta')" data-texto="cuenta">
+                Mi cuenta
+            </button>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- INICIO -->
+
+    <section id="inicio" class="seccion activa">
+
+        <h2 data-texto="bienvenida">Bienvenido 🎉</h2>
+
+        <p data-texto="descripcionInicio">
+            Crea, publica y explora rifas.
+        </p>
+
+        <p id="estadoUsuario"></p>
+
+    </section>
+
+
+
+    <!-- CREAR RIFA -->
+
+    <section id="crear" class="seccion">
+
+        <h2 data-texto="crearTitulo">Crear una rifa 🎟️</h2>
+
+        <form id="formularioRifa">
+
+            <p data-texto="tituloPremio">Título del premio:</p>
+
+            <input
+                type="text"
+                id="titulo"
+                placeholder="Ejemplo: Una heladera"
+                required
+            >
+
+
+            <p data-texto="descripcion">Descripción:</p>
+
+            <textarea
+                id="descripcion"
+                placeholder="Describe el premio..."
+                required
+            ></textarea>
+
+
+            <p data-texto="cantidad">¿Cuántos números tendrá?</p>
+
+            <input
+                type="number"
+                id="cantidad"
+                placeholder="Ejemplo: 100"
+                min="1"
+                required
+            >
+
+
+            <p data-texto="precio">Precio de cada número:</p>
+
+            <input
+                type="number"
+                id="precio"
+                placeholder="Ejemplo: 1000"
+                min="1"
+                required
+            >
+
+
+            <p data-texto="pais">País:</p>
+
+            <input
+                type="text"
+                id="pais"
+                placeholder="Ejemplo: Argentina"
+                required
+            >
+
+
+            <p data-texto="provincia">Provincia:</p>
+
+            <input
+                type="text"
+                id="provincia"
+                placeholder="Ejemplo: Neuquén"
+                required
+            >
+<p data-texto="imagenPremio">Imagen del premio (opcional):</p>
+
+<input
+    type="file"
+    id="imagenRifa"
+    accept="image/*"
+    style="display: none;"
+>
+
+<button
+    type="button"
+    id="botonSubirImagen"
+    data-texto="subirImagen"
+    style="background: linear-gradient(135deg, #10b981, #059669); margin-bottom: 15px;"
+>
+    📷 Subir imagen
+</button>
+
+<button
+    type="button"
+    id="botonQuitarImagen"
+    data-texto="quitarImagen"
+    style="display: none; background: linear-gradient(135deg, #ef4444, #dc2626); margin-bottom: 15px;"
+>
+    ❌ Quitar imagen
+</button>
+
+<div id="previewImagen" class="previewImagen"></div>
+
+<input
+    type="hidden"
+    id="imagenBase64"
+>
+
+            <br>
+
+            <button type="submit" data-texto="publicar">
+                PUBLICAR RIFA 🚀
+            </button>
+
+        </form>
+
+
+        <p id="mensajeCrear"></p>
+
+    </section>
+
+
+
+    <!-- EXPLORAR -->
+
+    <section id="explorar" class="seccion">
+
+        <h2 data-texto="explorarTitulo">Explorar rifas 🔍</h2>
+
+
+        <input
+            type="text"
+            id="buscador"
+            placeholder="Buscar una rifa..."
+        >
+
+
+        <input
+            type="text"
+            id="filtroPais"
+            placeholder="Filtrar por país"
+        >
+
+
+        <input
+            type="text"
+            id="filtroProvincia"
+            placeholder="Filtrar por provincia"
+        >
+
+
+        <button id="botonBuscar" data-texto="buscar">
+            BUSCAR 🔍
+        </button>
+
+
+        <div id="listaRifas"></div>
+
+    </section>
+
+
+
+    <!-- PARTICIPAR -->
+
+    <section id="participarSeccion" class="seccion">
+
+        <h2 id="tituloParticipar"></h2>
+
+        <p id="descripcionParticipar"></p>
+
+        <p id="precioParticipar"></p>
+
+        <h3 data-texto="eligeNumeros">Elige tus números:</h3>
+
+        <div id="numerosRifa"></div>
+
+
+        <p>
+            <span data-texto="tusNumeros">Tus números:</span>
+            <span id="seleccionados">Ninguno</span>
+        </p>
+
+
+        <p>
+            <span data-texto="total">Total:</span>
+            $<span id="totalPagar">0</span>
+        </p>
+
+
+        <button id="confirmarParticipacion" data-texto="confirmar">
+            CONFIRMAR PARTICIPACIÓN 🎟️
+        </button>
+
+
+        <p id="mensajeParticipar"></p>
+
+
+        <br>
+
+        <button onclick="mostrarSeccion('explorar')" data-texto="volver">
+            ← VOLVER
+        </button>
+
+    </section>
+
+    <!-- MIS RIFAS -->
+
+<section id="misRifas" class="seccion">
+
+    <h2 data-texto="misRifasTitulo">Mis rifas 👤</h2>
+
+    <p data-texto="misRifasDescripcion">
+        Acá podés ver todas las rifas que creaste.
+    </p>
+
+    <div id="listaMisRifas"></div>
+
+</section>
+
+
+    <!-- CUENTA -->
+
+    <section id="cuenta" class="seccion">
+
+        <h2 data-texto="cuenta">Mi cuenta 👤</h2>
+
+
+        <div id="zonaNoLogueado">
+
+            <h3 data-texto="crearCuenta">Crear cuenta</h3>
+
+            <input
+                type="text"
+                id="nuevoUsuario"
+                placeholder="Nombre de usuario"
+            >
+
+            <input
+                type="password"
+                id="nuevaPassword"
+                placeholder="Contraseña"
+            >
+
+            <button id="registrar" data-texto="registrarme">
+                REGISTRARME
+            </button>
+
+
+            <hr>
+
+
+            <h3 data-texto="iniciarSesion">Iniciar sesión</h3>
+
+            <input
+                type="text"
+                id="usuarioLogin"
+                placeholder="Usuario"
+            >
+
+            <input
+                type="password"
+                id="passwordLogin"
+                placeholder="Contraseña"
+            >
+
+            <button id="iniciarSesion" data-texto="iniciarSesionBtn">
+                INICIAR SESIÓN
+            </button>
+
+        </div>
+
+
+
+        <div id="zonaLogueado">
+
+            <h3 id="nombreUsuario"></h3>
+
+            <button id="cerrarSesion" data-texto="cerrarSesion">
+                CERRAR SESIÓN
+            </button>
+
+        </div>
+
+
+        <p id="mensajeCuenta"></p>
+
+    </section>
+
+<!-- PANEL EDITAR RIFA -->
+
+<div id="overlayEditar" class="overlayEditar"></div>
+
+<aside id="panelEditar" class="panelEditar">
+
+    <header class="panelEditarHeader">
+        <h3 data-texto="editarRifa">✏️ Editar rifa</h3>
+
+        <button
+            type="button"
+            id="cerrarPanelEditar"
+            class="cerrarPanelEditar"
+            title="Cerrar"
+        >
+            ✕
+        </button>
+    </header>
+
+    <div class="panelEditarCuerpo">
+
+        <p data-texto="editarTitulo">Título:</p>
+        <input type="text" id="editarTitulo">
+
+        <p data-texto="editarDescripcion">Descripción:</p>
+        <textarea id="editarDescripcion"></textarea>
+
+        <p data-texto="editarPrecio">Precio por número:</p>
+        <input type="number" id="editarPrecio" min="1">
+
+        <p data-texto="editarImagen">Imagen del premio:</p>
+
+        <div id="previewEditarImagen" class="previewImagen"></div>
+
+        <input
+            type="file"
+            id="editarImagenInput"
+            accept="image/*"
+            style="display: none;"
+        >
+
+        <input
+            type="hidden"
+            id="editarImagenBase64"
+        >
+
+        <button
+            type="button"
+            id="botonCambiarImagen"
+            class="botonSecundario"
+            data-texto="cambiarImagen"
+        >
+            📷 Cambiar imagen
+        </button>
+
+        <button
+            type="button"
+            id="botonQuitarImagenEditar"
+            class="botonPeligro"
+            data-texto="quitarImagen"
+        >
+            ❌ Quitar imagen
+        </button>
+
+    </div>
+
+    <footer class="panelEditarFooter">
+
+        <button
+            type="button"
+            id="cancelarEdicion"
+            class="botonSecundario"
+            data-texto="cancelar"
+        >
+            Cancelar
+        </button>
+
+        <button
+            type="button"
+            id="guardarEdicion"
+            data-texto="guardarCambios"
+        >
+            💾 Guardar cambios
+        </button>
+
+    </footer>
+
+</aside>
+
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
